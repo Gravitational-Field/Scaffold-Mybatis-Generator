@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="MySQLTables" targetRuntime="MyBatis3">     <!--MyBatis3Simple-->
+	
+		<!--生成抑制，抑制所有的注释-->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+
+		<!--com.mysql.cj.jdbc.Driver-->
+		<!-- mvn mybatis-generator:generate 配置数据库位置 ，配置虚拟机上的mysql ip地址；不采用安全协议连接，否则无法逆向生成 -->
+		<!--connectionURL="jdbc:mysql://ip地址:3306/数据库名称?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=GMT%2B8&amp;nullCatalogMeansCurrent=true"-->
+		<jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost/dbname?characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=GMT%2B8&amp;nullCatalogMeansCurrent=true"
+			userId="root" password="example">
+		</jdbcConnection>
+<!--	connectionURL="jdbc:mysql://ip地址/数据库名称?characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=GMT%2B8&amp;nullCatalogMeansCurrent=true"
+-->
+		
+		<!--字段是否强制decimal-->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+
+		<!-- javaBean生成在哪里 -->
+		<javaModelGenerator
+			targetPackage="com.mybatis.generator.bean"
+			targetProject="./src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- sqlMap sql映射文件（xml mapper文件） -->
+		<sqlMapGenerator targetPackage="mybatis.mapperXML"
+			targetProject="./src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- javaClient：java接口生成的地方 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.mybatis.generator.mapper"
+			targetProject="./src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!--对所有的表进行转换为bean-->
+		<!--1、 全部生成，并且每个Bean还有相应的BeanExample-->
+		<table schema="" tableName="%"></table>
+
+		<!--2、 不生成Example -->
+		<!--<table tableName="%" enableCountByExample="false"
+			   enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+			   enableDeleteByPrimaryKey="true"></table>-->
+
+		<!--3、 将指定表生成指定的实体-->
+		<!--	<table schema="TAdmin" tableName="t_admin"></table>-->
+	</context>
+</generatorConfiguration> 
